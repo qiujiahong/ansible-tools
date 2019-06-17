@@ -3,3 +3,4 @@
 
 
 * [系统准备](docs/prepare.md)
+* [授权与网络](docs/free_password.md)

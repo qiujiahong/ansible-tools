@@ -35,4 +35,10 @@ ssh-copy-id app@192.168.2.11
 ```
 
 
+* 控制主机,创建文件夹/etc/ansible,上传并拷贝该工程文件到这个文件夹下
 
+```bash
+mkdir /etc/ansible
+# 这里假设控制主机是192.168.2.11
+scp -r ./*  root@192.168.2.11:/etc/ansible
+```

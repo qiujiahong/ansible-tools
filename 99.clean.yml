@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+  - name: remove files and dirs of all nodes
+    file: name={{ item }} state=absent
+    with_items:
+    - "{{ apps_base_dir }}"
+    - "{{ data_base_dir }}"
+    - "{{ logs_base_dir }}"

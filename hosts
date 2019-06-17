@@ -6,9 +6,11 @@
 [java]
 192.168.2.11
 
-
 [all:vars]
 # ---------集群主要参数---------------
+apps_base_dir=/apps/apps
+data_base_dir=/apps/data
+logs_base_dir=/apps/logs
 
 TEST="this is a test parameter"
 

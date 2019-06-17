@@ -1,0 +1,4 @@
+- name: Extract java into {{ apps_base_dir }}
+  unarchive:
+    src: down/jdk-8u211-linux-x64.tar.gz
+    dest: "{{ apps_base_dir }}"

@@ -1,0 +1,4 @@
+#  prepare installition.
+- hosts: java
+  roles:
+  - java

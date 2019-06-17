@@ -1,0 +1,14 @@
+# web1 ansible_ssh_port=22 ansible_ssh_host=192.168.3.90 ansible_ssh_user=root
+# 192.168.3.90 ansible_ssh_user=root
+# [webs]
+# web1
+
+[java]
+192.168.2.11
+
+
+[all:vars]
+# ---------集群主要参数---------------
+
+TEST="this is a test parameter"
+

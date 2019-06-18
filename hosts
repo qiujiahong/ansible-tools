@@ -6,6 +6,28 @@
 [java]
 192.168.2.11
 
+[nginx]
+192.168.2.11
+
+[tomcat]
+192.168.2.11
+
+[redis]
+192.168.2.11
+
+
+[mysql]
+192.168.2.11
+
+[discover_server]
+192.168.2.11
+
+[config_server]
+192.168.2.11
+
+
+
+
 [all:vars]
 # ---------集群主要参数---------------
 apps_base_dir=/apps/apps

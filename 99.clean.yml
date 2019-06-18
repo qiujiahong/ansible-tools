@@ -14,3 +14,5 @@
     with_items:
     - 'ansible_java_home'
     - 'ansible_java_path' 
+    - 'ansible_redis_path' 
+    

@@ -1,0 +1,25 @@
+- name: Extract tomcat into {{ apps_base_dir }}
+  unarchive:
+    src: down/apache-tomcat-8.5.42.tar.gz
+    dest: "{{ apps_base_dir }}"
+
+- name: remove onld server config file.
+  file: name={{ item }} state=absent
+  with_items:
+  - "{{ apps_base_dir }}/apache-tomcat-8.5.42/conf/server.xml "
+
+- name: addd server.xml
+  template:
+    src: server.xml.j2
+    dest: "{{ apps_base_dir }}/apache-tomcat-8.5.42/conf/server.xml"
+
+
+- name: set tomcat power on script.
+  template:
+    src: tomcat.j2
+    dest: "/etc/init.d/tomcat"
+
+- name: set power on tomcat.
+  shell: "chmod +x /etc/init.d/tomcat &&  chkconfig tomcat on && /etc/init.d/tomcat start"
+
+  

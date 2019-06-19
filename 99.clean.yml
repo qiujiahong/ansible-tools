@@ -6,6 +6,7 @@
     - "{{ apps_base_dir }}"
     - "{{ data_base_dir }}"
     - "{{ logs_base_dir }}"
+    
   - name: clean 'ENV PATH'
     lineinfile:
       dest: /etc/profile

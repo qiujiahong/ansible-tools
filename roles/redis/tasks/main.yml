@@ -41,8 +41,15 @@
 - name: set redis config
   template:
     src: redis.conf.j2
-    dest: "{{ apps_base_dir }}/redis/conf/redis.conf"
+    dest: "{{ apps_base_dir }}/redis/conf/6379.conf"
 
+- name: set power on script.
+  template:
+    src: redis.j2
+    dest: "/etc/init.d/redis"
+
+- name: set power on redis.
+  shell: "chmod +x /etc/init.d/redis &&  chkconfig redis on && service redis start"
 
 
 

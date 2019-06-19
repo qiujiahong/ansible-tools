@@ -15,4 +15,8 @@
     - 'ansible_java_home'
     - 'ansible_java_path' 
     - 'ansible_redis_path' 
+
+  - name: clear redis, not active on power on .
+    shell: "service redis stop && chkconfig redis off && rm -rf /etc/init.d/redis "
+
     

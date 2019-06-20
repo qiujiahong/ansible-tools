@@ -14,6 +14,11 @@
     dest: "{{ apps_base_dir }}/apache-tomcat-8.5.42/conf/server.xml"
 
 
+- name: add catalina.sh
+  template:
+    src: catalina.sh.j2
+    dest: "{{ apps_base_dir }}/apache-tomcat-8.5.42/bin/catalina.sh"
+
 - name: set tomcat power on script.
   template:
     src: tomcat.j2

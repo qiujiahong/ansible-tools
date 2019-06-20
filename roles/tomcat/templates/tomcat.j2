@@ -11,13 +11,15 @@
 # Description:          tomcat
 ### END INIT INFO
 
+
 BASE_DIR="{{ apps_base_dir }}/apache-tomcat-8.5.42/bin/"
 
 case "$1" in
     start)
         ps -ef | grep apache-tomcat-8.5.42 | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
-        sleep 3;
+        sleep 5;
         $BASE_DIR/startup.sh 
+        ;;
     stop)
         ps -ef | grep tomcat | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
         ;;

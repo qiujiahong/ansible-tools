@@ -1,5 +1,17 @@
 - hosts: all
   tasks:
+  - name: clear redis, not active on power on .
+    shell: "service redis stop && chkconfig redis off && rm -rf /etc/init.d/redis "
+
+  - name: clear nginx, not active on power on .
+    shell: "service nginx stop && chkconfig nginx off && rm -rf /etc/init.d/nginx "
+
+  - name: clear tomcat, not active on power on .
+    shell: "service tomcat stop && chkconfig tomcat off && rm -rf /etc/init.d/tomcat "
+
+  - name: clear mysql, not active on power on .
+    shell: "service mysql stop && chkconfig mysql off && rm -rf /etc/init.d/mysql "
+
   - name: remove files and dirs of all nodes
     file: name={{ item }} state=absent
     with_items:
@@ -18,8 +30,7 @@
     - 'ansible_java_home'
     - 'ansible_java_path' 
     - 'ansible_redis_path' 
+    - 'ansible_mysql_path' 
 
-  - name: clear redis, not active on power on .
-    shell: "service redis stop && chkconfig redis off && rm -rf /etc/init.d/redis "
 
     

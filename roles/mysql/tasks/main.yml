@@ -1,0 +1,85 @@
+- name: remove old mysql data file.
+  file: name={{ item }} state=absent
+  with_items:
+  - "{{ data_base_dir }}/mysql"
+
+- name: prepare some dirs for mysql
+  file: name={{ item }} state=directory
+  with_items:
+  - "/usr/local/mysql/"
+  - "{{ data_base_dir }}/mysql"
+  - "{{ logs_base_dir }}/mysql"
+
+# - name: Extract nginx into {{ apps_base_dir }}
+#   unarchive:
+#     src: down/mysql-5.7.26-el7-x86_64.tar.gz
+#     dest: "/tmp"
+
+# - name: movie mysql install file.
+#   shell: "mv /tmp/mysql-5.7.26-el7-x86_64/* /usr/local/mysql/"
+
+# - name: add mysql user and mysql group.
+#   shell: "groupadd mysql && useradd -r -g mysql mysql"
+
+- name: install libaio
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - libaio
+
+
+- name: set mysql config  script.
+  template:
+    src: my.cnf.j2
+    dest: "/etc/my.cnf"
+
+
+- name: ./bin/mysqld --initialize --user=mysql --datadir=/apps/data/mysql/.
+  shell: "./bin/mysqld --initialize --user=mysql --datadir=/apps/data/mysql/"
+  args:
+    chdir: "/usr/local/mysql/"
+
+- name: ./bin/mysql_ssl_rsa_setup.
+  shell: "./bin/mysql_ssl_rsa_setup"
+  args:
+    chdir: "/usr/local/mysql/"
+
+# 
+# 
+# ./bin/mysqld_safe --user=mysql
+
+
+# - name: change the owner of the dir.
+#   shell: "chown -R mysql:mysql {{ apps_base_dir }}/mysql/  && chown -R mysql:mysql {{ data_base_dir }}/mysql/  && chown -R mysql:mysql {{ logs_base_dir }}/mysql/ "
+#   args:
+#     chdir: "/tmp/mysql-5.7.26-el7-x86_64/"
+
+
+# - name: init mysql config.
+#   shell: "./bin/mysqld --initialize --user=mysql --datadir=/apps/data/mysql/"
+#   args:
+#     chdir: "{{ apps_base_dir }}/mysql/"
+
+
+# - name: set mysql start script.
+#   template:
+#     src: mysql.j2
+#     dest: "/etc/init.d/mysql"
+
+
+# - name: set power on mysql.
+#   shell: "chmod +x /etc/init.d/mysql &&  chkconfig mysql on && /etc/init.d/mysql start"
+
+
+# ./bin/mysqld --initialize --user=mysql --basedir=/apps/apps/mysql --datadir=/apps/data/mysql --pid-file=/apps/data/mysql/mysql.pid --tmpdir=/tmp
+
+# yum -y install ncurses-devel cmake gcc gcc-c++ 
+
+
+
+# cmake . -DCMAKE_INSTALL_PREFIX=/apps/apps/mysql/ -DMYSQL_DATADIR=/apps/data/mysql/ -DMYSQL_UNIX_ADDR=/tmp/mysql.sock -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DENABLED_LOCAL_INFILE=1 -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DEXTRA_CHARSETS=all -DMYSQL_TCP_PORT=3306 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost
+
+
+# ./bin/mysqld --initialize --user=mysql --datadir=/apps/data/mysql/
+

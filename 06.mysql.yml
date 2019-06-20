@@ -1,4 +1,6 @@
 #  prepare installition.
-- hosts: tomcat
+- hosts: mysql
   roles:
-  - tomcat
+  - mysql
+
+

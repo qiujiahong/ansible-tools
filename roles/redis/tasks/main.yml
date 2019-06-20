@@ -52,4 +52,7 @@
   shell: "chmod +x /etc/init.d/redis &&  chkconfig redis on && service redis start"
 
 
-
+- name: remove redis source file
+  file: name={{ item }} state=absent
+  with_items:
+  - "/tmp/redis-*"

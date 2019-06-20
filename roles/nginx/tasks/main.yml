@@ -1,38 +1,36 @@
-# - name: prepare some dirs for nginx
-#   file: name={{ item }} state=directory
-#   with_items:
-#   - "{{ apps_base_dir }}/nginx"
+- name: prepare some dirs for nginx
+  file: name={{ item }} state=directory
+  with_items:
+  - "{{ apps_base_dir }}/nginx"
 
-# - name: Extract nginx into {{ apps_base_dir }}
-#   unarchive:
-#     src: down/nginx-1.12.2.tar.gz
-#     dest: "{{ apps_base_dir }}"
+- name: Extract nginx into {{ apps_base_dir }}
+  unarchive:
+    src: down/nginx-1.12.2.tar.gz
+    dest: "{{ apps_base_dir }}"
 
+- name: install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - gcc
+    - pcre
+    - pcre-devel
+    - zlib
+    - zlib-devel
+    - openssl
+    - openssl-devel
 
-# - name: install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel
-#   yum:
-#     name: "{{ packages }}"
-#   vars:
-#     packages:
-#     - gcc
-#     - pcre
-#     - pcre-devel
-#     - zlib
-#     - zlib-devel
-#     - openssl
-#     - openssl-devel
-
-  
-# - name: config nginx --prefix={{ apps_base_dir }}/nginx .
-#   shell: "./configure --prefix={{ apps_base_dir }}/nginx"
-#   args:
-#     chdir: "{{ apps_base_dir }}/nginx-1.12.2"
+- name: config nginx --prefix={{ apps_base_dir }}/nginx .
+  shell: "./configure --prefix={{ apps_base_dir }}/nginx"
+  args:
+    chdir: "{{ apps_base_dir }}/nginx-1.12.2"
 
 
-# - name: make && make install.
-#   shell: "make && make install"
-#   args:
-#     chdir: "{{ apps_base_dir }}/nginx-1.12.2"
+- name: make && make install.
+  shell: "make && make install"
+  args:
+    chdir: "{{ apps_base_dir }}/nginx-1.12.2"
 
 
 - name: set nginx power on script.
@@ -43,7 +41,10 @@
 - name: set power on nginx.
   shell: "chmod +x /etc/init.d/nginx &&  chkconfig nginx on && /etc/init.d/nginx start"
 
-  
+- name: remove nginx source file.
+  file: name={{ item }} state=absent
+  with_items:
+  - "{{ apps_base_dir }}/nginx-1.12.2"
 
 
 

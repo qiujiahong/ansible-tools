@@ -17,7 +17,7 @@
 
 
 [mysql]
-192.168.2.11
+192.168.2.11 mysql_password=111111
 
 [discover_server]
 192.168.2.11

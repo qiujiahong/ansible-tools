@@ -78,4 +78,3 @@
   shell: "{{ item }}"
   with_items:
   - "abc=$(cat {{ logs_base_dir }}/mysql/mysqld_error.log|grep 'temporary p' | awk '{print $NF}') && /usr/local/mysql/bin/mysql --connect-expired-password  -uroot -p$abc < /tmp/init.sql "
-

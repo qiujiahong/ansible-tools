@@ -16,9 +16,17 @@ BASE_DIR="{{ apps_base_dir }}/apache-tomcat-8.5.42/bin/"
 
 case "$1" in
     start)
-        ps -ef | grep apache-tomcat-8.5.42 | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
+        echo "111" >> /root/log.log
+        echo "111" 
+        ps -ef | grep {{ apps_base_dir }}/jdk1.8.0_211 | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
+        echo "222" >> /root/log.log
+        echo "222" 
         sleep 5;
-        $BASE_DIR/startup.sh 
+        echo "333:${BASE_DIR}startup.sh" >> /root/log.log
+        echo "333:${BASE_DIR}startup.sh" 
+        ${BASE_DIR}startup.sh 
+        echo "444" >> /root/log.log
+        echo "444"
         ;;
     stop)
         ps -ef | grep tomcat | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;

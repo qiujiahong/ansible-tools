@@ -1,3 +1,8 @@
+- name: remove tomcat files 
+  file: name={{ item }} state=absent
+  with_items:
+  - "{{ apps_base_dir }}/apache-tomcat-8.5.42"
+
 - name: Extract tomcat into {{ apps_base_dir }}
   unarchive:
     src: down/apache-tomcat-8.5.42.tar.gz
@@ -19,12 +24,28 @@
     src: catalina.sh.j2
     dest: "{{ apps_base_dir }}/apache-tomcat-8.5.42/bin/catalina.sh"
 
+- name: add setclasspath.sh
+  template:
+    src: setclasspath.sh
+    dest: "{{ apps_base_dir }}/apache-tomcat-8.5.42/bin/setclasspath.sh"
+
 - name: set tomcat power on script.
   template:
     src: tomcat.j2
     dest: "/etc/init.d/tomcat"
 
+# - name: set power on tomcat.
+#   shell: "chmod +x /etc/init.d/tomcat &&  chkconfig tomcat on && /etc/init.d/tomcat start > /root/log.log"
 - name: set power on tomcat.
-  shell: "chmod +x /etc/init.d/tomcat &&  chkconfig tomcat on && /etc/init.d/tomcat start"
+  shell: "{{ item }}"
+  with_items:
+  - "chmod +x /etc/init.d/tomcat "  
+  - "chkconfig tomcat on"
+#   - "service tomcat start"
+#   - "/etc/init.d/tomcat start > /root/log.log"
 
-  
+- name: Start service tomcat, if not started
+  service:
+    name: tomcat
+    state: started
+    enabled: yes

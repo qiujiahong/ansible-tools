@@ -13,17 +13,16 @@
 ### END INIT INFO
 
 
-BASE_DIR="{{ apps_base_dir }}/nginx/sbin/"
+BASE_DIR="{{ apps_base_dir }}/nginx/sbin"
 
 case "$1" in
     start)
-        ps -ef | grep $BASE_DIR | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
-        ps -ef | grep "nginx: worker process" | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
+        $BASE_DIR/nginx -s stop 
         sleep 3;
         $BASE_DIR/nginx
         ;;
     stop)
-        ps -ef | grep $BASE_DIR | grep -v grep | awk '{print $2}' | xargs -r kill -9 ;
+        $BASE_DIR/nginx -s stop 
         ;;
     *)
         echo "Please use start or stop as first argument"

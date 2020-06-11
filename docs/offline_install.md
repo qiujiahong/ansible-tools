@@ -69,7 +69,7 @@ for i in `ls /data/centos/base/Packages`;
 do curl -v --user 'admin:***' --upload-file /data/centos/base/Packages/$i http://11.1.14.147:8081/repository/yum/centos/7.6.1810/os/x86_64/Packages/$i;
 done
 ```
-> /opt/CentOS/base/Packages目录是本地存放rpm包的目录。
+> /data/centos/base/Packages目录是本地存放rpm包的目录。
 
 * epel目录结构有分层，脚本如下所示  
 

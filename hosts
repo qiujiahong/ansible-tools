@@ -24,7 +24,7 @@
 
 [config_server]
 192.168.2.11
-
+# 192.168.10.48   ansible_user=czp
 
 
 

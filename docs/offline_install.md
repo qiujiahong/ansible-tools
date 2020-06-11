@@ -65,8 +65,8 @@ mount -t iso9660 /root/CentOS-7-x86_64-DVD-1810.iso /data/centos
 * 同步外网的yum源之后，将源中的文件通过脚本同步到nexus3中，os目录的脚本如下所示，***为密码    
 ```bash 
 #! /bin/bash
-for i in `ls /opt/CentOS/base/Packages`;
-do curl -v --user 'admin:***' --upload-file /opt/CentOS/base/Packages/$i http://11.1.14.147:8081/repository/yum/centos/7.6.1810/os/x86_64/Packages/$i;
+for i in `ls /data/centos/base/Packages`;
+do curl -v --user 'admin:***' --upload-file /data/centos/base/Packages/$i http://11.1.14.147:8081/repository/yum/centos/7.6.1810/os/x86_64/Packages/$i;
 done
 ```
 > /opt/CentOS/base/Packages目录是本地存放rpm包的目录。
@@ -75,7 +75,7 @@ done
 
 ```bash 
 #! /bin/bash
-for i in `find /opt/CentOS/epel/Packages -type f`;
+for i in `find /data/centos/epel/Packages -type f`;
 do curl -v --user 'admin:***' --upload-file $i http://11.1.14.147:8081/repository/yum/local/epel/7/x86_64/Packages/${i:38};
 done
 ```
